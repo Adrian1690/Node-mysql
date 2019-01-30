@@ -1,22 +1,10 @@
-import mysql from 'mysql';
+import { dbConnection } from '../db/mysql-connection';
 
-const con = mysql.createConnection({
-    host: 'localhost',
-    user: 'homestead',
-    password: 'secret',
-    database: 's3uprade',
-    port: 33060
-});
-
-export const list = (callback) => {
-    con.connect();
-
+export const list = (callback) => { 
     const query = "select * from test";
-    con.query(query, (err, result, fields) => {
+    dbConnection.query(query, (err, result, fields) => {
         if(err) throw err;
 
         callback(result);
     });
-
-    con.end();
 };
